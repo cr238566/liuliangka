@@ -1,0 +1,43 @@
+name: 每日自动发布文章
+
+on:
+  schedule:
+    # 每天早上 8:00（北京时间 = UTC+8）
+    - cron: '0 0 * * *'
+  # 也可以手动触发
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          pip install markdown jinja2 Pillow
+
+      - name: 生成新文章
+        run: python auto/poster.py
+
+      - name: 重新生成网站
+        run: python generate.py
+
+      - name: 提交并推送
+        run: |
+          git config user.name "auto-poster"
+          git config user.email "auto-poster@users.noreply.github.com"
+          git add source/articles source/images
+          git diff --cached --quiet && exit 0
+          git commit -m "auto: 每日文章更新 $(date +%Y-%m-%d)"
+          git push
