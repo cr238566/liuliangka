@@ -1,5 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "pip install markdown jinja2 Pillow && python generate.py",
+  "buildCommand": "python3 -m venv .venv && .venv/bin/pip install markdown jinja2 Pillow && .venv/bin/python generate.py",
   "outputDirectory": "output"
 }
