@@ -1,7 +1,5 @@
-﻿{
+{
   "version": 2,
-  "buildCommand": "python generate.py",
-  "outputDirectory": "output",
-  "installCommand": "pip install markdown jinja2 Pillow",
-  "framework": null
+  "buildCommand": "pip install markdown jinja2 Pillow && python generate.py",
+  "outputDirectory": "output"
 }
