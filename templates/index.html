@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ config.site_name }} - 精选高性价比流量卡{% endblock %}
+{% block description %}超值流量卡优选为您精选各大运营商高性价比流量卡，提供最新套餐对比、使用技巧与优惠活动资讯。{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>精选高性价比<em>流量卡</em></h1>
+        <p>覆盖全国各大运营商，实时更新套餐信息，帮你找到最合适的流量卡</p>
+        <div class="hero-stats">
+            <div class="stat"><span class="num">{{ articles|length }}</span><span class="label">推荐文章</span></div>
+            <div class="stat"><span class="num">{{ config.categories|length }}</span><span class="label">分类栏目</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="featured-categories">
+    <h2 class="section-title">文章分类</h2>
+    <div class="category-grid">
+        {% for cat in config.categories %}
+        <a href="{{ root_path }}/category/{{ cat.slug }}/index.html" class="category-card">
+            <h3>{{ cat.name }}</h3>
+            <p>{{ cat.description }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="latest-articles">
+    <h2 class="section-title">最新文章</h2>
+    <div class="article-list">
+        {% for article in articles[:config.articles_per_page] %}
+        <article class="article-card">
+            {% if article.image %}
+            <a href="{{ root_path }}/article/{{ article.slug }}/index.html" class="article-image-link">
+                <img src="{{ root_path }}/{{ article.image }}" alt="{{ article.title }}" loading="lazy" class="article-image">
+            </a>
+            {% endif %}
+            <div class="article-info">
+                <div class="article-meta">
+                    <span class="article-category"><a href="{{ root_path }}/category/{{ article.category }}/index.html">{{ article.category_name }}</a></span>
+                    <span class="article-date">{{ article.date }}</span>
+                </div>
+                <h3 class="article-title"><a href="{{ root_path }}/article/{{ article.slug }}/index.html" rel="bookmark">{{ article.title }}</a></h3>
+                <p class="article-excerpt">{{ article.excerpt }}</p>
+                <a href="{{ root_path }}/article/{{ article.slug }}/index.html" class="read-more">阅读全文 →</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

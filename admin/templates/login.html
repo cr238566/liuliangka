@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 流量卡优选管理后台</title>
+    <link rel="stylesheet" href="/static/admin.css">
+</head>
+<body>
+<div class="login-page">
+    <div class="login-box">
+        <h1>📊 流量卡管理后台</h1>
+        <p style="text-align:center;color:#64748b;margin-bottom:20px;font-size:.85rem">请输入密码登录</p>
+        {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+        {% endif %}
+        <form method="post">
+            <input type="password" name="password" placeholder="请输入密码" required autofocus>
+            <button type="submit" class="btn btn-primary" style="width:100%">登录</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

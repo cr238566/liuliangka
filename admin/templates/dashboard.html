@@ -1,0 +1,42 @@
+﻿{% extends "base.html" %}
+{% block title %}仪表盘{% endblock %}
+
+{% block content %}
+<div class="topbar">
+    <h1>仪表盘</h1>
+    <form method="post" action="{{ url_for("generate_site") }}" id="genForm" style="display:inline">
+        <button type="submit" class="btn btn-success" onclick="return confirm('确认重新生成整个网站？')">🔄 重新生成网站</button>
+    </form>
+</div>
+
+<div class="stats">
+    <div class="stat-card">
+        <div class="num">{{ article_count }}</div>
+        <div class="label">文章总数</div>
+    </div>
+    {% for cat in categories %}
+    <div class="stat-card">
+        <div class="num">{{ cat_counts.get(cat.slug, 0) }}</div>
+        <div class="label">{{ cat.name }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<div id="genResult" style="display:none" class="card mt-2"></div>
+
+<script>
+document.getElementById("genForm")?.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector("button");
+    btn.disabled = true;
+    btn.textContent = "⏳ 生成中...";
+    const res = await fetch(this.action, { method: "POST" });
+    const data = await res.json();
+    btn.disabled = false;
+    btn.textContent = "🔄 重新生成网站";
+    const div = document.getElementById("genResult");
+    div.style.display = "block";
+    div.innerHTML = "<h3>" + (data.success ? "✅ 生成成功！" : "❌ 生成失败") + "</h3><pre style='background:#1e293b;color:#e2e8f0;padding:16px;border-radius:6px;font-size:.8rem;margin-top:8px;max-height:300px;overflow:auto'>" + (data.output || "") + "</pre>";
+});
+</script>
+{% endblock %}

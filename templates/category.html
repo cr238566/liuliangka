@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ cat.name }} - {{ config.site_name }}{% endblock %}
+{% block description %}{{ cat.description }}{% endblock %}
+
+{% block content %}
+<section class="category-page">
+    <div class="breadcrumb">
+        <a href="{{ root_path }}/index.html">首页</a> &gt; <span>{{ cat.name }}</span>
+    </div>
+
+    <header class="category-header">
+        <h1>{{ cat.name }}</h1>
+        <p>{{ cat.description }}</p>
+    </header>
+
+    <div class="article-list">
+        {% for article in articles %}
+        <article class="article-card">
+            {% if article.image %}
+            <a href="{{ root_path }}/article/{{ article.slug }}/index.html" class="article-image-link">
+                <img src="{{ root_path }}/{{ article.image }}" alt="{{ article.title }}" loading="lazy" class="article-image">
+            </a>
+            {% endif %}
+            <div class="article-info">
+                <div class="article-meta">
+                    <span class="article-date">{{ article.date }}</span>
+                </div>
+                <h3 class="article-title"><a href="{{ root_path }}/article/{{ article.slug }}/index.html" rel="bookmark">{{ article.title }}</a></h3>
+                <p class="article-excerpt">{{ article.excerpt }}</p>
+                <a href="{{ root_path }}/article/{{ article.slug }}/index.html" class="read-more">阅读全文 →</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

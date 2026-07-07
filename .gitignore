@@ -1,0 +1,13 @@
+﻿__pycache__/
+*.pyc
+*.egg-info/
+.DS_Store
+*.log
+*.bak
+server.err
+server.log
+venv/
+.env
+output/
+outputs/
+work/

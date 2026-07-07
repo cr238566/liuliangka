@@ -1,0 +1,38 @@
+{
+  "site_name": "超值流量卡优选",
+  "site_url": "https://liuliangka.example.com",
+  "site_description": "精选高性价比流量卡推荐，覆盖全国各大运营商，提供最新套餐对比、使用技巧与优惠活动资讯。",
+  "site_keywords": "流量卡,手机流量卡,纯流量卡,5G流量卡,电信流量卡,移动流量卡,联通流量卡,流量套餐",
+  "author": "流量卡优选团队",
+  "beian": "",
+  "ga_id": "",
+  "logo_text": "流量卡优选",
+  "articles_per_page": 10,
+  "categories": [
+    {
+      "slug": "tuijian",
+      "name": "流量卡推荐",
+      "description": "精选各大运营商高性价比流量卡推荐"
+    },
+    {
+      "slug": "jiqiao",
+      "name": "使用技巧",
+      "description": "流量卡使用技巧与省钱攻略"
+    },
+    {
+      "slug": "duibi",
+      "name": "套餐对比",
+      "description": "各运营商流量套餐详细对比分析"
+    },
+    {
+      "slug": "zixun",
+      "name": "行业资讯",
+      "description": "流量卡行业最新动态与政策资讯"
+    },
+    {
+      "slug": "huodong",
+      "name": "优惠活动",
+      "description": "限时优惠、新卡上线等福利活动"
+    }
+  ]
+}

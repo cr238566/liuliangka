@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}隐私政策 - {{ config.site_name }}{% endblock %}
+{% block description %}超值流量卡优选的隐私政策和用户协议。{% endblock %}
+
+{% block content %}
+<section class="static-page">
+    <div class="breadcrumb">
+        <a href="{{ root_path }}/index.html">首页</a> > <span>隐私政策</span>
+    </div>
+    <article class="page-content">
+        <h1>隐私政策</h1>
+        <h2>信息收集</h2>
+        <p>当您访问本网站时，我们可能会收集以下信息：</p>
+        <ul>
+            <li>浏览器类型和版本</li>
+            <li>操作系统信息</li>
+            <li>访问时间和浏览页面记录</li>
+            <li>您通过搜索功能提交的查询内容</li>
+        </ul>
+        <h2>信息使用</h2>
+        <p>我们收集的信息仅用于以下目的：</p>
+        <ul>
+            <li>改善网站内容和用户体验</li>
+            <li>分析网站流量和使用趋势</li>
+            <li>提供更精准的搜索服务</li>
+        </ul>
+        <h2>Cookie</h2>
+        <p>本网站可能使用Cookie来改善您的浏览体验。您可以在浏览器设置中选择禁用Cookie，但这可能影响部分功能的正常使用。</p>
+        <h2>第三方链接</h2>
+        <p>本网站可能包含第三方网站的链接，我们不对这些网站的隐私政策和内容负责。</p>
+        <h2>政策更新</h2>
+        <p>我们保留随时更新本隐私政策的权利。更新后的政策将在本页面公布。</p>
+    </article>
+</section>
+{% endblock %}

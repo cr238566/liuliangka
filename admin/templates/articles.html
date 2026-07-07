@@ -1,0 +1,32 @@
+﻿{% extends "base.html" %}
+{% block title %}文章管理{% endblock %}
+
+{% block content %}
+<div class="topbar">
+    <h1>文章管理</h1>
+    <a href="{{ url_for("article_new") }}" class="btn btn-primary">+ 写新文章</a>
+</div>
+
+<div class="card">
+    {% if articles %}
+    <table>
+        <tr><th>标题</th><th>分类</th><th>日期</th><th>操作</th></tr>
+        {% for a in articles %}
+        <tr>
+            <td><strong>{{ a.title }}</strong></td>
+            <td>{{ cat_map.get(a.category, a.category) }}</td>
+            <td style="color:#64748b;font-size:.85rem">{{ a.date }}</td>
+            <td class="flex">
+                <a href="{{ url_for("article_edit", filename=a.filename) }}" class="btn btn-primary btn-sm">编辑</a>
+                <form method="post" action="{{ url_for("article_delete", filename=a.filename) }}" onsubmit="return confirm('确认删除「{{ a.title }}」？')">
+                    <button type="submit" class="btn btn-danger btn-sm ml-2">删除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <div class="empty">暂无文章，点击右上角「写新文章」开始</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}关于我们 - {{ config.site_name }}{% endblock %}
+{% block description %}关于超值流量卡优选，我们致力于为用户提供最新、最全面的流量卡资讯和套餐对比。{% endblock %}
+
+{% block content %}
+<section class="static-page">
+    <div class="breadcrumb">
+        <a href="{{ root_path }}/index.html">首页</a> > <span>关于我们</span>
+    </div>
+    <article class="page-content">
+        <h1>关于我们</h1>
+        <h2>关于超值流量卡优选</h2>
+        <p>{{ config.site_name }}致力于为广大用户提供最新、最全面的流量卡资讯和套餐对比服务。我们深入调研各大运营商的流量卡产品，为用户筛选出高性价比的选择。</p>
+        <h2>我们的服务</h2>
+        <ul>
+            <li><strong>最新资讯</strong> —— 第一时间发布运营商流量卡新品和优惠活动</li>
+            <li><strong>专业对比</strong> —— 多维度对比各套餐的流量、通话、价格等关键参数</li>
+            <li><strong>使用技巧</strong> —— 分享流量卡使用中的省钱技巧和注意事项</li>
+            <li><strong>行业动态</strong> —— 关注流量卡行业政策变化和发展趋势</li>
+        </ul>
+        <h2>免责声明</h2>
+        <p>本网站仅为信息展示平台，不直接参与任何交易环节。文章中提及的套餐信息仅供参考，具体以运营商官方发布为准。购买流量卡请通过运营商官方渠道或授权代理商办理。</p>
+        <h2>联系我们</h2>
+        <p>如有任何问题或建议，欢迎通过以下方式联系我们：</p>
+        <ul>
+            <li>邮箱：contact@example.com</li>
+        </ul>
+    </article>
+</section>
+{% endblock %}

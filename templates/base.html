@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ config.site_name }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ config.site_description }}{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}{{ config.site_keywords }}{% endblock %}">
+    <meta name="author" content="{{ config.author }}">
+    <meta property="og:title" content="{% block og_title %}{{ config.site_name }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ config.site_description }}{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ config.site_url }}">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="{% block canonical %}{{ config.site_url }}{% endblock %}">
+    <link rel="stylesheet" href="{{ root_path }}/assets/css/style.css">
+    {% if config.ga_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ config.ga_id }}"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "{{ config.ga_id }}");</script>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="{{ root_path }}/index.html" class="logo">{{ config.logo_text }}</a>
+            <nav class="main-nav" id="mainNav">
+                <a href="{{ root_path }}/index.html">首页</a>
+                {% for cat in config.categories %}
+                <a href="{{ root_path }}/category/{{ cat.slug }}/index.html">{{ cat.name }}</a>
+                {% endfor %}
+            </nav>
+            <div class="search-box">
+                <form action="{{ root_path }}/search.html" method="get">
+                    <input type="text" name="q" placeholder="搜索流量卡..." required>
+                </form>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-section">
+                <h3>{{ config.logo_text }}</h3>
+                <p>{{ config.site_description }}</p>
+            </div>
+            <div class="footer-section">
+                <h3>热门分类</h3>
+                <ul>
+                    {% for cat in config.categories[:4] %}
+                    <li><a href="{{ root_path }}/category/{{ cat.slug }}/index.html">{{ cat.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>关于</h3>
+                <ul>
+                    <li><a href="{{ root_path }}/about.html">关于我们</a></li>
+                    <li><a href="{{ root_path }}/privacy.html">隐私政策</a></li>
+                    <li><a href="{{ root_path }}/sitemap.xml">网站地图</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024-2026 {{ config.site_name }}. All rights reserved.</p>
+                {% if config.beian %}<p>{{ config.beian }}</p>{% endif %}
+                <p class="disclaimer">本网站仅提供信息展示，不参与任何交易环节，购买请通过运营商官方渠道。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ root_path }}/assets/js/main.js"></script>
+</body>
+</html>

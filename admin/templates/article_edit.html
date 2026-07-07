@@ -1,0 +1,88 @@
+﻿{% extends "base.html" %}
+{% block title %}{% if article %}编辑文章{% else %}写新文章{% endif %}{% endblock %}
+
+{% block content %}
+<div class="topbar">
+    <h1>{% if article %}编辑文章{% else %}写新文章{% endif %}</h1>
+    <a href="{{ url_for("article_list") }}" class="btn btn-secondary btn-sm">← 返回列表</a>
+</div>
+
+<div class="card">
+    <form method="post">
+        <div class="form-row">
+            <div>
+                <label>文章标题 *</label>
+                <input type="text" name="title" value="{{ article.title if article else "" }}" required>
+            </div>
+            <div>
+                <label>URL 别名（slug，留空自动生成）</label>
+                <input type="text" name="slug" value="{{ article.slug if article else "" }}" placeholder="例: 5g-tui-jian">
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label>分类</label>
+                <select name="category">
+                    {% for c in cats %}
+                    <option value="{{ c.slug }}" {% if article and article.category==c.slug %}selected{% endif %}>{{ c.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>标签（逗号分隔）</label>
+                <input type="text" name="tags" value="{{ article.tags if article else "" }}" placeholder="5G,流量卡,推荐">
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label>发布日期</label>
+                <input type="text" name="date" value="{{ article.date if article else "" }}" placeholder="2026-07-05">
+            </div>
+            <div>
+                <label>优先级（0-5，越高越重要）</label>
+                <input type="number" name="priority" value="{{ article.priority if article else "0" }}" min="0" max="5">
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label>配图路径（可选）</label>
+                <input type="text" name="image" value="{{ article.image if article else "" }}" placeholder="/source/images/xxx.jpg">
+            </div>
+            <div>
+                <label>文章摘要（可选，留空自动生成）</label>
+                <input type="text" name="excerpt" value="{{ article.excerpt if article else "" }}" placeholder="文章简介...">
+            </div>
+        </div>
+
+        <label>正文（Markdown 格式）</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <textarea name="content" rows="20" style="font-family:monospace;font-size:.85rem" id="mdEditor">{{ article.content if article else "" }}</textarea>
+            <div class="preview-box" id="preview"></div>
+        </div>
+
+        <div class="flex mt-2">
+            <button type="submit" class="btn btn-primary">💾 保存文章</button>
+            <button type="button" class="btn btn-secondary ml-2" id="previewBtn">👁 预览</button>
+        </div>
+    </form>
+</div>
+
+<script>
+const editor = document.getElementById("mdEditor");
+const preview = document.getElementById("preview");
+
+async function doPreview() {
+    const form = new FormData();
+    form.append("content", editor.value);
+    const res = await fetch("{{ url_for("preview_markdown") }}", { method: "POST", body: form });
+    preview.innerHTML = await res.text();
+}
+
+document.getElementById("previewBtn").addEventListener("click", doPreview);
+editor.addEventListener("input", function() {
+    clearTimeout(this._timer);
+    this._timer = setTimeout(doPreview, 800);
+});
+doPreview();
+</script>
+{% endblock %}

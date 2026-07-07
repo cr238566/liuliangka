@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}搜索结果 - {{ config.site_name }}{% endblock %}
+{% block description %}搜索流量卡相关文章{% endblock %}
+
+{% block content %}
+<section class="search-page">
+    <h1>搜索结果：{{ query }}</h1>
+    {% if articles %}
+    <p>共找到 {{ articles|length }} 篇相关文章</p>
+    <div class="article-list">
+        {% for article in articles %}
+        <article class="article-card">
+            {% if article.image %}
+            <a href="{{ root_path }}/article/{{ article.slug }}/index.html" class="article-image-link">
+                <img src="{{ root_path }}/{{ article.image }}" alt="{{ article.title }}" loading="lazy" class="article-image">
+            </a>
+            {% endif %}
+            <div class="article-info">
+                <h3 class="article-title"><a href="{{ root_path }}/article/{{ article.slug }}/index.html" rel="bookmark">{{ article.title }}</a></h3>
+                <p class="article-excerpt">{{ article.excerpt }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-results">
+        <p>没有找到与"<strong>{{ query }}</strong>"相关的文章，请尝试其他关键词。</p>
+        <p>建议搜索：流量卡推荐、5G套餐、纯流量卡、电信、移动、联通等</p>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

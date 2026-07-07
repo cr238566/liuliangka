@@ -1,0 +1,38 @@
+﻿{% extends "base.html" %}
+{% block title %}图片管理{% endblock %}
+
+{% block content %}
+<div class="topbar">
+    <h1>图片管理</h1>
+    <span style="color:#64748b;font-size:.85rem">图片储存在 source/images/</span>
+</div>
+
+<div class="card">
+    <h2 class="mb-2">上传新图片</h2>
+    <form method="post" action="{{ url_for("image_upload") }}" enctype="multipart/form-data">
+        <div class="flex">
+            <input type="file" name="file" accept="image/*" required style="flex:1;padding:6px">
+            <button type="submit" class="btn btn-primary ml-2">上传</button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <h2 class="mb-2">图片列表</h2>
+    {% if images %}
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
+        {% for img in images %}
+        <div style="border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;text-align:center">
+            <img src="/source/images/{{ img }}" style="width:100%;height:120px;object-fit:cover" loading="lazy">
+            <div style="padding:6px;font-size:.78rem;color:#64748b;word-break:break-all">{{ img }}</div>
+            <form method="post" action="{{ url_for("image_delete", name=img) }}" style="padding:0 6px 6px">
+                <button type="submit" class="btn btn-danger btn-sm" style="width:100%" onclick="return confirm('确认删除？')">删除</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">暂无图片</div>
+    {% endif %}
+</div>
+{% endblock %}

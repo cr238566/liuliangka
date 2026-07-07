@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} - {{ config.site_name }}{% endblock %}
+{% block description %}{{ article.excerpt }}{% endblock %}
+{% block keywords %}{{ article.tags|join(",") }},{% endblock %}
+{% block og_title %}{{ article.title }}{% endblock %}
+{% block og_description %}{{ article.excerpt }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block canonical %}{{ config.site_url }}/article/{{ article.slug }}/{% endblock %}
+
+{% block content %}
+<article class="single-article">
+    <div class="breadcrumb">
+        <a href="{{ root_path }}/index.html">首页</a> &gt; <a href="{{ root_path }}/category/{{ article.category }}/index.html">{{ article.category_name }}</a> &gt; <span>{{ article.title }}</span>
+    </div>
+
+    <header class="article-header">
+        <h1 class="article-title">{{ article.title }}</h1>
+        <div class="article-meta-bar">
+            <span class="meta-category">分类：<a href="{{ root_path }}/category/{{ article.category }}/index.html">{{ article.category_name }}</a></span>
+            <span class="meta-date">发布日期：{{ article.date }}</span>
+            {% if article.update_date %}
+            <span class="meta-update">更新于：{{ article.update_date }}</span>
+            {% endif %}
+        </div>
+    </header>
+
+    {% if article.image %}
+    <div class="article-featured-image">
+        <img src="{{ root_path }}/{{ article.image }}" alt="{{ article.title }}">
+    </div>
+    {% endif %}
+
+    <div class="article-body">
+        {{ article.content|safe }}
+    </div>
+
+    {% if article.tags %}
+    <div class="article-tags">
+        <strong>标签：</strong>
+        {% for tag in article.tags %}
+        <a href="{{ root_path }}/tag/{{ tag }}/index.html" class="tag">{{ tag }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="article-share">
+        <span>分享到：</span>
+        <a href="https://service.weibo.com/share/share.php?title={{ article.title }}&url={{ config.site_url }}/article/{{ article.slug }}/" target="_blank" rel="noopener nofollow">微博</a>
+        <a href="https://connect.qq.com/widget/shareqq/index.html?title={{ article.title }}&url={{ config.site_url }}/article/{{ article.slug }}/" target="_blank" rel="noopener nofollow">QQ</a>
+    </div>
+
+    <div class="article-nav">
+        {% if prev_article %}
+        <a href="{{ root_path }}/article/{{ prev_article.slug }}/index.html" class="prev">← {{ prev_article.title }}</a>
+        {% endif %}
+        {% if next_article %}
+        <a href="{{ root_path }}/article/{{ next_article.slug }}/index.html" class="next">{{ next_article.title }} →</a>
+        {% endif %}
+    </div>
+
+    {% if related_articles %}
+    <aside class="related-articles">
+        <h3>相关推荐</h3>
+        <div class="related-grid">
+            {% for ra in related_articles %}
+            <div class="related-card">
+                {% if ra.image %}<img src="{{ root_path }}/{{ ra.image }}" alt="{{ ra.title }}" loading="lazy">{% endif %}
+                <h4><a href="{{ root_path }}/article/{{ ra.slug }}/index.html">{{ ra.title }}</a></h4>
+            </div>
+            {% endfor %}
+        </div>
+    </aside>
+    {% endif %}
+</article>
+{% endblock %}

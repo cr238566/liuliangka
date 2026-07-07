@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}管理后台{% endblock %} - 流量卡优选</title>
+    <link rel="stylesheet" href="/static/admin.css">
+</head>
+<body>
+<div class="layout">
+    {% if session.logged_in %}
+    <aside class="sidebar">
+        <h2>📊 流量卡管理</h2>
+        <nav>
+            <a href="{{ url_for("dashboard") }}" class="{% if request.path=="/" %}active{% endif %}">仪表盘</a>
+            <a href="{{ url_for("article_list") }}" class="{% if "/articles" in request.path %}active{% endif %}">文章管理</a>
+            <a href="{{ url_for("image_list") }}" class="{% if "/images" in request.path %}active{% endif %}">图片管理</a>
+            <a href="{{ url_for("settings") }}" class="{% if "/settings" in request.path %}active{% endif %}">网站设置</a>
+            <hr style="border-color:#334155;margin:12px 20px">
+            <a href="{{ url_for("logout") }}">退出登录</a>
+        </nav>
+    </aside>
+    {% endif %}
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>

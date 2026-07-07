@@ -1,0 +1,44 @@
+﻿{% extends "base.html" %}
+{% block title %}网站设置{% endblock %}
+
+{% block content %}
+<div class="topbar">
+    <h1>网站设置</h1>
+</div>
+
+<div class="card">
+    <form method="post">
+        <div class="form-row">
+            <div>
+                <label>网站名称</label>
+                <input type="text" name="site_name" value="{{ config.site_name }}">
+            </div>
+            <div>
+                <label>网站域名</label>
+                <input type="url" name="site_url" value="{{ config.site_url }}" placeholder="https://example.com">
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label>作者</label>
+                <input type="text" name="author" value="{{ config.author }}">
+            </div>
+            <div>
+                <label>备案号</label>
+                <input type="text" name="beian" value="{{ config.get("beian","") }}" placeholder="沪ICP备xxxxxx号">
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label>GA 统计 ID（可选）</label>
+                <input type="text" name="ga_id" value="{{ config.get("ga_id","") }}" placeholder="G-xxxxxxxxxx">
+            </div>
+        </div>
+        <label>网站描述</label>
+        <textarea name="site_description" rows="2">{{ config.site_description }}</textarea>
+        <label>网站关键词</label>
+        <textarea name="site_keywords" rows="2">{{ config.site_keywords }}</textarea>
+        <button type="submit" class="btn btn-primary mt-2">💾 保存设置</button>
+    </form>
+</div>
+{% endblock %}
