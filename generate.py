@@ -161,6 +161,7 @@ def generate_site():
     print("=" * 50)
     print("  流量卡优选 - 静态站点生成")
     print("=" * 50)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     assets_dir = OUTPUT_DIR / "assets"
     for item in OUTPUT_DIR.iterdir():
         if item.name != "assets":
